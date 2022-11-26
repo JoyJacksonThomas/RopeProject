@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to “Obi - Advanced ropes for Unity” will be documented in this file.
 
+## [6.5]
+
+### Added
+- Improved constraint coloring, which results in much faster blueprint generation.
+
+### Fixed
+- Memory leak when using collision constraints in the Burst backend.
+- Performance drop when using collision constraints in Burst >1.7
+- Incorrect lighting on particles in the blueprint editor, when opening the editor without having previously opened any scene.
+
 ## [6.4]
 
 ### Added

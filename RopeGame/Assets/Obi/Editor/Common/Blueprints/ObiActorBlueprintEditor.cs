@@ -232,7 +232,7 @@ namespace Obi
                     ActiveEditorTracker.sharedTracker.isLocked = true;
 
                     oldSetup = EditorSceneManager.GetSceneManagerSetup();
-                    EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
+                    EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
 
                     // Set properties for all scene views:
                     m_SceneStates = new List<SceneStateCache>();

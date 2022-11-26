@@ -78,7 +78,7 @@ namespace Obi
                 return false;
             }
 
-            public void Destroy()
+            public void Dispose()
             {
                 contents.Dispose();
             }
@@ -102,6 +102,9 @@ namespace Obi
 
         public void Clear()
         {
+            for (int i = 0; i < usedCells.Length; ++i)
+                usedCells[i].Dispose();
+
             grid.Clear();
             usedCells.Clear();
             populatedLevels.Clear();
@@ -109,6 +112,9 @@ namespace Obi
 
         public void Dispose()
         {
+            for (int i = 0; i < usedCells.Length; ++i)
+                usedCells[i].Dispose();
+
             grid.Dispose();
             usedCells.Dispose();
             populatedLevels.Dispose();
@@ -146,6 +152,7 @@ namespace Obi
                 {
                     DecreaseLevelPopulation(usedCells[i].Coords.w);
                     grid.Remove(usedCells[i].Coords);
+                    usedCells[i].Dispose();
                     usedCells.RemoveAtSwapBack(i);
                 }
             }

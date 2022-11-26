@@ -42,7 +42,8 @@ namespace Obi
 
         private const int maxBatches = 17;
 
-        private ConstraintBatcher constraintBatcher;
+        private ConstraintBatcher<ContactProvider> collisionConstraintBatcher;
+        private ConstraintBatcher<FluidInteractionProvider> fluidConstraintBatcher;
 
         // Per-type constraints array:
         private IBurstConstraintsImpl[] constraints;
@@ -126,11 +127,14 @@ namespace Obi
         public NativeArray<int4> cellCoords;
         public NativeArray<BurstAabb> simplexBounds;
 
+        private ConstraintSorter<BurstContact> contactSorter;
+
         public BurstSolverImpl(ObiSolver solver)
         {
             this.m_Solver = solver;
 
             jobHandlePool = new JobHandlePool<BurstJobHandle>(4);
+            contactSorter = new ConstraintSorter<BurstContact>();
 
             // Initialize collision world:
             GetOrCreateColliderWorld();
@@ -144,7 +148,8 @@ namespace Obi
             particleGrid = new ParticleGrid();
 
             // Initialize constraint batcher:
-            constraintBatcher = new ConstraintBatcher(maxBatches);
+            collisionConstraintBatcher = new ConstraintBatcher<ContactProvider>(maxBatches);
+            fluidConstraintBatcher = new ConstraintBatcher<FluidInteractionProvider>(maxBatches);
 
             // Initialize constraint arrays:
             constraints = new IBurstConstraintsImpl[Oni.ConstraintTypeCount];
@@ -185,7 +190,8 @@ namespace Obi
             if (colliderGrid != null)
                 colliderGrid.DecreaseReferenceCount();
 
-            constraintBatcher.Dispose();
+            collisionConstraintBatcher.Dispose();
+            fluidConstraintBatcher.Dispose();
 
             if (activeParticles.IsCreated)
                 activeParticles.Dispose();
@@ -628,7 +634,7 @@ namespace Obi
                 var dequeueHandle = JobHandle.CombineDependencies(dequeueParticleContacts.Schedule(), dequeueFluidInteractions.Schedule(), dequeueColliderContacts.Schedule());
 
                 // Sort contacts for jitter-free gauss-seidel (sequential) solving:
-                dequeueHandle = ConstraintSorter.SortConstraints<BurstContact>(simplexCounts.simplexCount, rawParticleContacts, ref sortedParticleContacts, dequeueHandle);
+                dequeueHandle = contactSorter.SortConstraints(simplexCounts.simplexCount, rawParticleContacts, ref sortedParticleContacts, dequeueHandle);
 
                 ContactProvider contactProvider = new ContactProvider()
                 {
@@ -646,11 +652,11 @@ namespace Obi
 
                 // batch particle contacts:
                 var activeParticleBatchCount = new NativeArray<int>(1, Allocator.TempJob);
-                var particleBatchHandle = constraintBatcher.BatchConstraints(ref contactProvider, particleCount, ref particleBatchData, ref activeParticleBatchCount, dequeueHandle);
+                var particleBatchHandle = collisionConstraintBatcher.BatchConstraints(ref contactProvider, particleCount, ref particleBatchData, ref activeParticleBatchCount, dequeueHandle);
 
                 // batch fluid interactions:
                 var activeFluidBatchCount = new NativeArray<int>(1, Allocator.TempJob);
-                var fluidBatchHandle = constraintBatcher.BatchConstraints(ref fluidProvider, particleCount, ref fluidBatchData, ref activeFluidBatchCount, dequeueHandle);
+                var fluidBatchHandle = fluidConstraintBatcher.BatchConstraints(ref fluidProvider, particleCount, ref fluidBatchData, ref activeFluidBatchCount, dequeueHandle);
 
                 JobHandle.CombineDependencies(particleBatchHandle, fluidBatchHandle).Complete();
 

@@ -74,11 +74,11 @@ namespace Obi
 
         private void Update()
         {
+            accumulatedTime += Time.deltaTime;
+
             ObiProfiler.EnableProfiler();
             Interpolate(Time.fixedDeltaTime, accumulatedTime);
             ObiProfiler.DisableProfiler();
-
-            accumulatedTime += Time.deltaTime;
         }
     }
 }

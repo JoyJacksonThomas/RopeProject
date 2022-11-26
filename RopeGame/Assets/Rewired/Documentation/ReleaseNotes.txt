@@ -1,3 +1,28 @@
+1.1.44.0:
+
+  Changes:
+    - MacOS, Game Controller Framework: Added support for setting light color on Dual Shock 4 and Dual Sense controllers.
+    - Checks Unity Active Input Manager setting on installation and warns user if set to an incompatible setting.
+    - Internal changes to allow Rewired plugins to optionally run target platform-specific code in the Unity editor.
+  
+  API Changes:
+    - Added Rewired.Platforms.Apple.GameController.GCControllerShock4Extension.SetLightColor functions.
+    - Added Rewired.Platforms.Apple.GameController.GCControllerDualSenseExtension.SetLightColor functions.
+    
+  Bug Fixes:
+    - Mac OS Standalone, Native, Game Controller Framework enabled: Fixed bug causing crash in MacOS versions prior to 11.0.
+    - Reverted old workaround for a platform-specific Unity bug in Rewired Pointer Input Module which disabled the check to see if a mouse is present before processing mouse input events. The workaround caused issues because touch input changes the Unity mouse pointer position.
+
+1.1.43.0:
+
+  Changes:
+    - Added MacOS Game Controller Framework support.
+  
+  API Changes:
+    - Added ControllerMap.CreateFromJson function.
+    - Added Controller.Element.compoundElement property.
+    - Added Controller.GetCompoundElementById function.
+
 1.1.42.1:
 
     Bug Fixes:

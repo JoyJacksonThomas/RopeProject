@@ -27,6 +27,8 @@ namespace Obi
 
         public Quaternion root2WorldR;
 
+        private GraphColoring colorizer;
+
         private ObiBone.IgnoredBone GetIgnoredBone(Transform bone)
         {
             for (int i = 0; i < ignored.Count; ++i)
@@ -166,6 +168,8 @@ namespace Obi
                     yield return new CoroutineJob.ProgressInfo("ObiRod: generating particles...", i / (float)m_ActiveParticleCount);
             }
 
+            colorizer = new GraphColoring(m_ActiveParticleCount);
+
             // Create edge simplices:
             CreateSimplices();
 
@@ -196,27 +200,29 @@ namespace Obi
 
         protected virtual IEnumerator CreateStretchShearConstraints(List<Vector3> particlePositions)
         {
-            List<int> particleIndices = new List<int>();
-            List<int> constraintIndices = new List<int>();
+
+            colorizer.Clear();
 
             for (int i = 1; i < particlePositions.Count; ++i)
             {
                 int parent = parentIndices[i];
                 if (parent >= 0)
                 {
-                    particleIndices.Add(parent);
-                    particleIndices.Add(i);
-                    constraintIndices.Add(constraintIndices.Count * 2);
+                    colorizer.AddConstraint(new[] { parent, i });
                 }
             }
 
-            constraintIndices.Add(constraintIndices.Count * 2);
-
             stretchShearConstraintsData = new ObiStretchShearConstraintsData();
 
-            int[] constraintColors = GraphColoring.Colorize(particleIndices.ToArray(), constraintIndices.ToArray());
+            List<int> constraintColors = new List<int>();
+            var colorize = colorizer.Colorize("ObiBone: coloring stretch/shear constraints...", constraintColors);
+            while (colorize.MoveNext())
+                yield return colorize.Current;
 
-            for (int i = 0; i < constraintColors.Length; ++i)
+            var particleIndices = colorizer.particleIndices;
+            var constraintIndices = colorizer.constraintIndices;
+
+            for (int i = 0; i < constraintColors.Count; ++i)
             {
                 int color = constraintColors[i];
                 int cIndex = constraintIndices[i];
@@ -235,33 +241,34 @@ namespace Obi
                 stretchShearConstraintsData.batches[color].activeConstraintCount++;
 
                 if (i % 500 == 0)
-                    yield return new CoroutineJob.ProgressInfo("ObiBone: generating stretch constraints...", i / constraintColors.Length);
+                    yield return new CoroutineJob.ProgressInfo("ObiBone: generating stretch constraints...", i / constraintColors.Count);
             }
         }
 
         protected virtual IEnumerator CreateBendTwistConstraints(List<Vector3> particlePositions)
         {
-            List<int> particleIndices = new List<int>();
-            List<int> constraintIndices = new List<int>();
+            colorizer.Clear();
 
             for (int i = 1; i < particlePositions.Count; ++i)
             {
                 int parent = parentIndices[i];
                 if (parent >= 0)
                 {
-                    particleIndices.Add(parent);
-                    particleIndices.Add(i);
-                    constraintIndices.Add(constraintIndices.Count * 2);
+                    colorizer.AddConstraint(new[] { parent, i });
                 }
             }
 
-            constraintIndices.Add(constraintIndices.Count * 2);
-
             bendTwistConstraintsData = new ObiBendTwistConstraintsData();
 
-            int[] constraintColors = GraphColoring.Colorize(particleIndices.ToArray(), constraintIndices.ToArray());
+            List<int> constraintColors = new List<int>();
+            var colorize = colorizer.Colorize("ObiBone: colorizing bend/twist constraints...", constraintColors);
+            while (colorize.MoveNext())
+                yield return colorize.Current;
 
-            for (int i = 0; i < constraintColors.Length; ++i)
+            var particleIndices = colorizer.particleIndices;
+            var constraintIndices = colorizer.constraintIndices;
+
+            for (int i = 0; i < constraintColors.Count; ++i)
             {
                 int color = constraintColors[i];
                 int cIndex = constraintIndices[i];
@@ -278,7 +285,7 @@ namespace Obi
                 bendTwistConstraintsData.batches[color].activeConstraintCount++;
 
                 if (i % 500 == 0)
-                    yield return new CoroutineJob.ProgressInfo("ObiBone: generating bend constraints...", i / constraintColors.Length);
+                    yield return new CoroutineJob.ProgressInfo("ObiBone: generating bend constraints...", i / constraintColors.Count);
             }
         }
 

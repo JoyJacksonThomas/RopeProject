@@ -6436,6 +6436,11 @@
             List of all Elements in this controller.
             </summary>
         </member>
+        <member name="P:Rewired.Controller.CompoundElements">
+            <summary>
+            List of all Compound Elements in this controller.
+            </summary>
+        </member>
         <member name="P:Rewired.Controller.Buttons">
             <summary>
             List of Buttons in this controller.
@@ -6464,6 +6469,13 @@
             </summary>
             <param name="elementIdentifierId">The element identifier id.</param>
             <returns>The Element with the specified element idenfitier id. Returns null if not found.</returns>
+        </member>
+        <member name="M:Rewired.Controller.GetCompundElementById(System.Int32)">
+            <summary>
+            Gets the Compound Element with the specified element identifier id.
+            </summary>
+            <param name="elementIdentifierId">The element identifier id.</param>
+            <returns>The Compound Element with the specified element idenfitier id. Returns null if not found.</returns>
         </member>
         <member name="M:Rewired.Controller.GetButtonIndexById(System.Int32)">
             <summary>
@@ -6862,6 +6874,12 @@
         <member name="P:Rewired.Controller.Element.isMemberElement">
             <summary>
             Returns True if the element is a member of a compound element such as an Axis2D.
+            </summary>
+        </member>
+        <member name="P:Rewired.Controller.Element.compoundElement">
+            <summary>
+            Returns the <see cref="T:Rewired.Controller.CompoundElement">Compound Element</see> parent of this element if any.
+            Returns null if this Element is not a member of a Compound Element.
             </summary>
         </member>
         <member name="T:Rewired.Controller.Axis">
@@ -9297,6 +9315,9 @@
         <member name="T:Rewired.Data.Mapping.HardwareJoystickMap.Platform_AppleGCController_Base.Axis">
             <exclude></exclude>
         </member>
+        <member name="T:Rewired.Data.Mapping.HardwareJoystickMap.Platform_AppleGCController_Base.CompoundElement">
+            <exclude></exclude>
+        </member>
         <member name="T:Rewired.Data.Mapping.HardwareJoystickMap.Platform_AppleGCController_Base.AppleGCControllerProfileTypeFlags">
             <exclude></exclude>
         </member>
@@ -9304,6 +9325,9 @@
             <exclude></exclude>
         </member>
         <member name="T:Rewired.Data.Mapping.HardwareJoystickMap.Platform_AppleGCController_Base.AppleGCControllerElementIdentifier">
+            <exclude></exclude>
+        </member>
+        <member name="T:Rewired.Data.Mapping.HardwareJoystickMap.Platform_AppleGCController_Base.AppleGCControllerElementIdentifierCompoundElements">
             <exclude></exclude>
         </member>
         <member name="T:Rewired.Data.Mapping.HardwareJoystickMap.Platform_AppleGCController_Base.AppleGCControllerElementIdentifierAxes">
@@ -11591,6 +11615,11 @@
             Use native input for the input source. This provides the best device support.
             </summary>
         </member>
+        <member name="F:Rewired.Platforms.OSXStandalonePrimaryInputSource.GameController">
+            <summary>
+            Use Apple Game Controller framework for the input source. This provides support only for devices supported by the Game Controller framework. This may not include all devices supported by the Native input source.
+            </summary>
+        </member>
         <member name="F:Rewired.Platforms.OSXStandalonePrimaryInputSource.SDL2">
             <summary>
              SDL2 - Use SDL2 for the input source. May be required for Steam Streaming and Steam Controller support in OSX. This option requires the SDL2 runtime library to be installed. Note: SDL2 does not support as many devices as other native input sources.
@@ -13401,6 +13430,10 @@
         <member name="P:Rewired.ActionElementMap.axisRange">
             <summary>
             The range of the axis.
+            Describes whether the Action is bound to the full, positive, or negative portion of the axis element.
+            Axis Range describes the axis element, not the Action.
+            Axis Range is not used when the Action is bound to a button element because buttons do not have a range of values or +/- poles.
+            For Actions bound to buttons or only one pole of an axis, <see cref="P:Rewired.ActionElementMap.axisContribution"/>.
             </summary>
         </member>
         <member name="P:Rewired.ActionElementMap.invert">
@@ -13411,6 +13444,12 @@
         <member name="P:Rewired.ActionElementMap.axisContribution">
             <summary>
             The contribution to the Action's final value when queried as an axis.
+            Describes how the binding contributes value to the Action when that Action is queried as an Axis. (Player.GetAxis()).
+            Axis Contribution describes the Action, not the element.
+            Axis Contribution is used to determine how button elements and split-axis element (one pole of an axis element) bindings
+            contribute value to the Action's value when queried as an axis.
+            Axis Contribution is not used when the Action is bound to a full-axis element.
+            Instead <see cref="P:Rewired.ActionElementMap.invert"/> is used to determine how the full-axis binding contributes value to the Action when queried as an axis.
             </summary>
         </member>
         <member name="P:Rewired.ActionElementMap.keyboardKeyCode">
@@ -16352,6 +16391,8 @@
             <summary>
             The range of the Action's value to map input to. For example, for an axis-type Action, should
             user input be mapped to the full range of the Action or just one side of the Action (+/-)?
+            NOTE: This is not the same as or interchangeable with <see cref="P:Rewired.ActionElementMap.axisRange"/>.
+            Do not pass the value from <see cref="P:Rewired.ActionElementMap.axisRange"/> into this function or you will get unexpected results.
             </summary>
         </member>
         <member name="M:Rewired.InputMapper.Context.#ctor">
