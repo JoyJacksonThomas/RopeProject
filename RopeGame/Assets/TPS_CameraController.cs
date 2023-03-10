@@ -118,14 +118,12 @@ public class TPS_CameraController : MonoBehaviour
         {
             zOffset = transform.InverseTransformPoint(hit.point).z + DistanceToWalls;
 
-            Debug.Log(transform.InverseTransformPoint(hit.point).z);
             Debug.DrawRay(mCamera.transform.position, mCamera.transform.TransformDirection(Vector3.back), Color.blue, hit.distance);
             raysCollided = true;
         }
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, -zOffset, camLayerMask))
         {
             zOffset = transform.InverseTransformPoint(hit.point).z + DistanceToWalls;
-            Debug.Log(transform.InverseTransformPoint(hit.point).z);
             Debug.DrawRay(mCamera.transform.position, mCamera.transform.TransformDirection(Vector3.forward), Color.green, -zOffset);
             raysCollided = true;
         }

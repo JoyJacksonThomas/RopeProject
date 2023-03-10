@@ -93,9 +93,12 @@ public class PlayerExtendableGrapplingHook : MonoBehaviour
     public int playerId = 0;
     private Rewired.Player player { get { return Rewired.ReInput.players.GetPlayer(playerId); } }
 
+    public TPS_PlayerController TpsPlayer;
+
+    public Transform HookPivot;
+
     void Awake()
     {
-
         // Create both the rope and the solver:	
         rope = gameObject.AddComponent<ObiRope>();
         ropeRenderer = gameObject.AddComponent<ObiRopeExtrudedRenderer>();
@@ -122,6 +125,7 @@ public class PlayerExtendableGrapplingHook : MonoBehaviour
     private void OnDestroy()
     {
         DestroyImmediate(blueprint);
+        
     }
 
     /**
@@ -237,6 +241,11 @@ public class PlayerExtendableGrapplingHook : MonoBehaviour
         pinConstraints.AddBatch(batch);
 
         rope.SetConstraintsDirty(Oni.ConstraintType.Pin);
+
+        TpsPlayer.moveState = MovementState.SWINGING;
+
+        //transform.SetParent(solver.transform);
+        //TpsPlayer.transform.parent = transform;
     }
 
     private void DetachHook()
@@ -244,6 +253,9 @@ public class PlayerExtendableGrapplingHook : MonoBehaviour
         // Set the rope blueprint to null (automatically removes the previous blueprint from the solver, if any).
         rope.ropeBlueprint = null;
         rope.GetComponent<MeshRenderer>().enabled = false;
+
+        TpsPlayer.moveState = MovementState.DEFAULT;
+        //TpsPlayer.transform.SetParent(null);
     }
 
 
@@ -261,14 +273,39 @@ public class PlayerExtendableGrapplingHook : MonoBehaviour
         if (rope.isLoaded)
         {
             cursor.ChangeLength(rope.restLength + hookExtendRetractSpeed * Time.deltaTime * player.GetAxis("AdjustRope"));
-            //if (player.GetAxis("AdjustRope"))
-            //{
-            //    cursor.ChangeLength(rope.restLength - hookExtendRetractSpeed * Time.deltaTime);
-            //}
-            //if (Input.GetKey(KeyCode.S))
-            //{
-            //    cursor.ChangeLength(rope.restLength + hookExtendRetractSpeed * Time.deltaTime);
-            //}
+
         }
+    }
+
+    public Vector3 GetRopeDownVector(int numParticlesToCalculate)
+    {
+        Vector3 down = Vector3.down;
+
+        numParticlesToCalculate = Mathf.Clamp(numParticlesToCalculate, 0, rope.activeParticleCount - 1);
+
+        for(int i = 0; i < numParticlesToCalculate; i++)
+        {
+            down += rope.GetParticlePosition(rope.activeParticleCount - 2 - i) - rope.GetParticlePosition(rope.activeParticleCount - 1 - i);
+        }
+
+        down /= numParticlesToCalculate;
+
+        return down;
+    }
+
+    public Vector3 GetRopeVectorVelocity(int numParticlesToCalculate)
+    {
+        Vector3 vel = Vector3.down;
+
+        numParticlesToCalculate = Mathf.Clamp(numParticlesToCalculate, 0, rope.activeParticleCount - 1);
+
+        for (int i = 0; i < numParticlesToCalculate; i++)
+        {
+            vel += (Vector3)solver.velocities[rope.activeParticleCount - 2 - i] - (Vector3)solver.velocities[rope.activeParticleCount - 1 - i];
+        }
+
+        vel /= numParticlesToCalculate;
+
+        return vel;
     }
 }

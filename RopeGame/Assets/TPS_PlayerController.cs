@@ -54,6 +54,10 @@ using Obi;
 using Rewired.ControllerExtensions;
 using Microsoft.Win32;
 
+public enum MovementState{
+    DEFAULT,
+    SWINGING
+}
 public class TPS_PlayerController : MonoBehaviour
 {
     Rigidbody rb;
@@ -73,6 +77,8 @@ public class TPS_PlayerController : MonoBehaviour
     public bool Grounded;
     public float JumpForce, TallerJumpForce;
 
+    public MovementState moveState = MovementState.DEFAULT;
+
     //public float RisingMass;
     //public float FallingMass;
 
@@ -91,6 +97,8 @@ public class TPS_PlayerController : MonoBehaviour
     public int ropeIndex;
     public ObiRope Rappel;
     public Transform Tracer;
+
+    public PlayerExtendableGrapplingHook Hook;
 
     // Start is called before the first frame update
     void Start()
@@ -117,15 +125,24 @@ public class TPS_PlayerController : MonoBehaviour
         }
 
 
-        //ropeIndex = Mathf.Clamp(ropeIndex, 0, Rappel.particleCount-2);
-        //Tracer.position = Rappel.GetParticlePosition(ropeIndex);
     }
 
     private void FixedUpdate()
     {
-        //rb.velocity = (transform.right * horizontal + transform.forward * vertical) * MoveSpeed + new Vector3(0, rb.velocity.y, 0);
+        switch(moveState)
+        {
+            case MovementState.DEFAULT: 
+                moveDefault();
+                break;
+            case MovementState.SWINGING:
+                moveSwinging();
+                break;
+        }
+        
+    }
 
-
+    void moveDefault()
+    {
         rb.AddForce((myCamera.transform.right * horizontal +
             new Vector3(myCamera.transform.forward.x, 0, myCamera.transform.forward.z).normalized * vertical) * MoveAcceleration,
             ForceMode.Acceleration);
@@ -154,7 +171,7 @@ public class TPS_PlayerController : MonoBehaviour
 
             rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
             jump = false;
-            
+
         }
 
         if (!Grounded && jumpPressedTime >= timeForTallerJump)
@@ -172,6 +189,64 @@ public class TPS_PlayerController : MonoBehaviour
         //    rb.AddForce(new Vector3(0, -FallingMass, 0), ForceMode.VelocityChange);
 
         //}
+
+        cameraController.AddRotation(-mouseY, mouseX, 0, Sensitivity);
+    }
+
+    void moveSwinging()
+    {
+        rb.AddForce((myCamera.transform.right * horizontal +
+           new Vector3(myCamera.transform.forward.x, 0, myCamera.transform.forward.z).normalized * vertical) * MoveAcceleration,
+           ForceMode.Acceleration);
+
+        if (rb.velocity.sqrMagnitude > currentMaxMoveSpeed * currentMaxMoveSpeed)
+        {
+            Vector3 horizontalVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            //rb.velocity = horizontalVel.normalized * currentMaxMoveSpeed + new Vector3(0, rb.velocity.y, 0);
+        }
+
+
+        if (rb.velocity.x != 0 || rb.velocity.z != 0)
+        {
+            Vector3 velocityFlatPlane = new Vector3(rb.velocity.x, 0, rb.velocity.z).normalized;
+            
+
+            transform.up = Hook.GetRopeDownVector(9);
+            Quaternion toRot = Quaternion.LookRotation(velocityFlatPlane, Vector3.up);
+            toRot.eulerAngles = new Vector3(0, toRot.eulerAngles.y, 0);
+            transform.Rotate(new Vector3(0, toRot.eulerAngles.y, 0), Space.Self);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, toRot, 30);
+        }
+
+
+        if (jump && Grounded)
+        {
+            Vector3 vel = rb.velocity;
+            vel.y = 0;
+
+            rb.velocity = vel;
+
+            rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
+            jump = false;
+
+        }
+
+        if (!Grounded && jumpPressedTime >= timeForTallerJump)
+        {
+            rb.AddForce(new Vector3(0, TallerJumpForce, 0), ForceMode.Acceleration);
+            jumpPressedTime = 0;
+        }
+
+        //if (rb.velocity.y <= 0)
+        //{
+        //    rb.AddForce(new Vector3(0, -RisingMass, 0), ForceMode.VelocityChange);
+        //}
+        //else
+        //{
+        //    rb.AddForce(new Vector3(0, -FallingMass, 0), ForceMode.VelocityChange);
+
+        //}
+
 
         cameraController.AddRotation(-mouseY, mouseX, 0, Sensitivity);
     }
