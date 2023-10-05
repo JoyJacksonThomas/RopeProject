@@ -34,7 +34,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3007
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -85,19 +85,19 @@ Material:
     - SHAPENORMAL: 3
     - _ADDITIONAL_LIGHTS: 1
     - _ADDITIONAL_LIGHT_SHADOWS: 1
-    - _AmbientOcclusion: 0.17
+    - _AmbientOcclusion: 1.32
     - _ChromaticSplit: 0
     - _DayHueOffset: 0
     - _FROMGRADIENT: 0
     - _LIGHTMAP_SHADOW_MIXING: 1
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
-    - _MaxRadiance: 0.3
+    - _MaxRadiance: 1
     - _MinRadiance: 0
     - _NightDayLerp: 0
     - _NormalIntensity: 5
     - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueOffset: 7
     - _SHADOWS_SOFT: 1
     - _ScatteringStrength: 1
     - _ShadowSaturationMin: 0

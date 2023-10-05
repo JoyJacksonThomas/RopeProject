@@ -150,7 +150,7 @@ float3 CalculateRadiance(CustomLightingData d) {
     float3 radiance = mainLight.color * (mainLight.distanceAttenuation * mainLight.shadowAttenuation);
 
 #ifdef _ADDITIONAL_LIGHTS
-     Shade additional cone and point lights. Functions in URP/ShaderLibrary/Lighting.hlsl
+    //Shade additional cone and point lights. Functions in URP/ShaderLibrary/Lighting.hlsl
     uint numAdditionalLights = GetAdditionalLightsCount();
     for (uint lightI = 0; lightI < numAdditionalLights; lightI++) {
         Light light = GetAdditionalLight(lightI, d.positionWS, d.shadowMask);
