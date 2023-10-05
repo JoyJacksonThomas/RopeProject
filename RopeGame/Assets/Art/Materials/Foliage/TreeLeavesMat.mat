@@ -20,13 +20,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FoliageMat
+  m_Name: TreeLeavesMat
   m_Shader: {fileID: -6465566751694194690, guid: d9e0f4fcd9144314caa9e7150d193ab2, type: 3}
   m_ValidKeywords:
-  - SHAPENORMAL_MESHNORMAL
+  - SHAPENORMAL_VERTEXNORMAL
   - _ADDITIONAL_LIGHTS
   - _ADDITIONAL_LIGHT_SHADOWS
-  - _FROMGRADIENT
   - _LIGHTMAP_SHADOW_MIXING
   - _MAIN_LIGHT_SHADOWS
   - _MAIN_LIGHT_SHADOWS_CASCADE
@@ -34,10 +33,9 @@ Material:
   m_InvalidKeywords:
   - _ADDITIONAL_LIGHT
   - _MAINLIGHTSHADOWS
-  - _MAIN_LIGHT_SHADOWS_CASCADES
-  - _SOFT_SHADOWS
+  - _MAIN_LIGHT_SHADOW
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -86,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 460faa4040a2a9f42b81065831d500c5, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -98,7 +96,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 31457252ff75f9346b85cbb141723418, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5243400aaad6ff4448c7a4bd1781eff2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_ba4f0a2a3c1043358bddef2375d8b483_Out_0:
+        m_Texture: {fileID: 2800000, guid: d02589925a340a84cab3fd4c3f4f057a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -115,45 +117,47 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - SHAPENORMAL: 0
+    - SHAPENORMAL: 3
     - _ADDITIONAL_LIGHT: 1
     - _ADDITIONAL_LIGHTS: 1
     - _ADDITIONAL_LIGHT_SHADOWS: 1
-    - _AmbientOcclusion: 1.15
+    - _AmbientOcclusion: 0.3
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DayHueOffset: -29.3
+    - _DayHueOffset: 16.8
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FROMGRADIENT: 1
+    - _FROMGRADIENT: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LIGHTMAP_SHADOW_MIXING: 1
     - _MAINLIGHTSHADOWS: 1
+    - _MAIN_LIGHT_SHADOW: 1
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
-    - _MAIN_LIGHT_SHADOWS_CASCADES: 1
+    - _MAIN_LIGHT_SHADOWS_CASCADES: 0
     - _Metallic: 0
     - _Mode: 0
-    - _NightDayLerp: 0
+    - _NightDayLerp: 1
+    - _NormalIntensity: 2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SHADOWS_SOFT: 1
     - _SOFTSHADOWS: 0
-    - _SOFT_SHADOWS: 1
-    - _ScatteringStrength: 0.708
+    - _SOFT_SHADOWS: 0
+    - _ScatteringStrength: 0.398
     - _ShadowSaturationLimit: 6.2
-    - _ShadowSaturationMin: 6.97
-    - _Smoothness: 1.45
+    - _ShadowSaturationMin: 0
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Thinness: 1
+    - _Thinness: 0.612
     - _UVSec: 0
-    - _VertexColorIntensity: 0
+    - _VertexColorIntensity: 2
     - _WindStrength: 0.1
     - _ZWrite: 1
     m_Colors:

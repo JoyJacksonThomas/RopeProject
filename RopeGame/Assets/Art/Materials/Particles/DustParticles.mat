@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1777378710898211765
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DustParticles
+  m_Shader: {fileID: -6465566751694194690, guid: 33a35cc1b30c35f4d87a5424d76cd97c, type: 3}
+  m_ValidKeywords:
+  - SHAPENORMAL_VERTEXNORMAL
+  - _ADDITIONAL_LIGHTS
+  - _ADDITIONAL_LIGHT_SHADOWS
+  - _LIGHTMAP_SHADOW_MIXING
+  - _MAIN_LIGHT_SHADOWS
+  - _MAIN_LIGHT_SHADOWS_CASCADE
+  - _SHADOWS_SOFT
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Noise2:
+        m_Texture: {fileID: 2800000, guid: c8ea5d6b2d9706b4f91ea248e16f4d95, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Noise3:
+        m_Texture: {fileID: 2800000, guid: 33621e20a73ce9a46b06652f69c9b69c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_81b5cb92c7024327a3cca39bd7df2108_Out_0:
+        m_Texture: {fileID: 2800000, guid: 33621e20a73ce9a46b06652f69c9b69c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_a41bd5dbd5cb4ce38deed1d684649964_Out_0:
+        m_Texture: {fileID: 2800000, guid: c8ea5d6b2d9706b4f91ea248e16f4d95, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_ba4f0a2a3c1043358bddef2375d8b483_Out_0:
+        m_Texture: {fileID: 2800000, guid: d02589925a340a84cab3fd4c3f4f057a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - SHAPENORMAL: 3
+    - _ADDITIONAL_LIGHTS: 1
+    - _ADDITIONAL_LIGHT_SHADOWS: 1
+    - _AmbientOcclusion: 0.17
+    - _ChromaticSplit: 0
+    - _DayHueOffset: 0
+    - _FROMGRADIENT: 0
+    - _LIGHTMAP_SHADOW_MIXING: 1
+    - _MAIN_LIGHT_SHADOWS: 1
+    - _MAIN_LIGHT_SHADOWS_CASCADE: 1
+    - _MaxRadiance: 0.3
+    - _MinRadiance: 0
+    - _NightDayLerp: 0
+    - _NormalIntensity: 5
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _SHADOWS_SOFT: 1
+    - _ScatteringStrength: 1
+    - _ShadowSaturationMin: 0
+    - _Smoothness: 0
+    - _Thinness: 1
+    - _VertexColorIntensity: 1
+    - _WindStrength: 0.1
+    m_Colors:
+    - _SubsurfaceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _WindPeriod: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - _WindPositionScale: {r: 0.1, g: 0.1, b: 0, a: 0}
+  m_BuildTextureStacks: []

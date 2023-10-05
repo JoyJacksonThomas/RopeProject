@@ -132,11 +132,43 @@ float3 CalculateCustomLighting(CustomLightingData d) {
 #endif
 }
 
+float3 CalculateRadiance(CustomLightingData d) {
+#ifdef SHADERGRAPH_PREVIEW
+    // In preview, estimate diffuse + specular
+    float3 lightDir = float3(0.5, 0.5, 0);
+    float intensity = saturate(dot(d.shapeNormalWS, lightDir)) +
+        pow(saturate(dot(d.meshNormalWS, normalize(d.viewDirectionWS + lightDir))), GetSmoothnessPower(d.smoothness));
+    return float3(1, 1, 1) * intensity;
+#else
+    // Get the main light. Located in URP/ShaderLibrary/Lighting.hlsl
+    Light mainLight = GetMainLight(d.shadowCoord, d.positionWS, d.shadowMask);
+    // In mixed subtractive baked lights, the main light must be subtracted
+    // from the bakedGI value. This function in URP/ShaderLibrary/Lighting.hlsl takes care of that.
+    MixRealtimeAndBakedGI(mainLight, d.shapeNormalWS, d.bakedGI);
+    float3 color = CustomGlobalIllumination(d);
+    // Shade the main light
+    float3 radiance = mainLight.color * (mainLight.distanceAttenuation * mainLight.shadowAttenuation);
+
+#ifdef _ADDITIONAL_LIGHTS
+     Shade additional cone and point lights. Functions in URP/ShaderLibrary/Lighting.hlsl
+    uint numAdditionalLights = GetAdditionalLightsCount();
+    for (uint lightI = 0; lightI < numAdditionalLights; lightI++) {
+        Light light = GetAdditionalLight(lightI, d.positionWS, d.shadowMask);
+        radiance += light.color * (light.distanceAttenuation * light.shadowAttenuation);
+    }
+#endif
+
+    //radiance = MixFog(radiance, d.fogFactor);
+
+    return radiance;
+#endif
+}
+
 void CalculateCustomLighting_float(float3 Position, float3 MeshNormal, float3 ShapeNormal, float3 ViewDirection,
     float3 Albedo, float Smoothness, float AmbientOcclusion, 
     float3 SubsurfaceColor, float Thinness, float ScatteringStrength,
     float2 LightmapUV,
-    out float3 Color) {
+    out float3 Color, out float3 Radiance) {
 
     CustomLightingData d;
     d.positionWS = Position;
@@ -189,6 +221,7 @@ void CalculateCustomLighting_float(float3 Position, float3 MeshNormal, float3 Sh
 #endif
 
     Color = CalculateCustomLighting(d);
+    Radiance = CalculateRadiance(d);
 }
 
 
