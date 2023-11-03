@@ -50,31 +50,31 @@ Material:
     - _ClipThreshold: 0
     - _CloudCutoff: 1
     - _CloudHeight: 1.57
-    - _CloudMaskCutoff: 0.082
+    - _CloudMaskCutoff: 0.09
     - _CloudMaskScale: 0.03
-    - _CloudSoftness: 0.25
+    - _CloudSoftness: 3
     - _EmissionStrength: 2.96
-    - _LuminanceStrength: 0.4
+    - _LuminanceStrength: 0.5
     - _MiddleYValue: 501.92
     - _MinRadiance: 0
     - _NoiseScale: 0.2
     - _QueueControl: 0
     - _QueueOffset: 2
     - _RadianceFactor: 0.94
-    - _ShadowOffset: 1
-    - _ShadowStrength: 0.8
-    - _SunStrength: -14.6
+    - _ShadowOffset: 1.97
+    - _ShadowStrength: 0.88
+    - _SunStrength: 65.1
     - _TaperPower: 0.2
     - _TranslusencyStrength: 0.22
     m_Colors:
-    - _CloudMaskVelocity: {r: 5, g: 1, b: 0, a: 0}
+    - _CloudMaskVelocity: {r: 20, g: 11.1, b: 0, a: 0}
     - _CloudVelocity: {r: 1, g: 0, b: 0, a: 0}
-    - _HorizonColor: {r: 0.6192947, g: 0.77157766, b: 0.78431374, a: 1}
+    - _HorizonColor: {r: 0.78431374, g: 0.5035024, b: 0.4862745, a: 1}
     - _LightDirection: {r: 10.65, g: 3.43, b: 48.43, a: 0}
     - _NadirColor: {r: 0.041971684, g: 0, b: 1, a: 0}
     - _ShadowDirection: {r: 0, g: 0, b: 0, a: 0}
-    - _SkyColor: {r: 0.34901962, g: 0.616001, b: 0.78431374, a: 1}
+    - _SkyColor: {r: 0.78431374, g: 0.56842244, b: 0.34901962, a: 1}
     - _SunColor: {r: 1, g: 0.9919779, b: 0.8726415, a: 1}
-    - _SunDirection: {r: 0, g: -0.832728, b: 0.55368227, a: 0}
+    - _SunDirection: {r: 0, g: 0, b: 1, a: 0}
     - _ViewDirection: {r: -0.25443423, g: 0.20184875, b: 0.9457908, a: 0}
   m_BuildTextureStacks: []
