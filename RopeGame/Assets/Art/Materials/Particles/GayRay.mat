@@ -92,7 +92,7 @@ Material:
     - _LIGHTMAP_SHADOW_MIXING: 1
     - _MAIN_LIGHT_SHADOWS: 1
     - _MAIN_LIGHT_SHADOWS_CASCADE: 1
-    - _MaxRadiance: 0.37
+    - _MaxRadiance: 0.1
     - _MinRadiance: 0
     - _NightDayLerp: 0
     - _NormalIntensity: 0.1

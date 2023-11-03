@@ -98,11 +98,11 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
-    - _CausticsLuminanceMaskStrength: 1.15
-    - _CausticsScale: 21.4
+    - _CausticsLuminanceMaskStrength: 1
+    - _CausticsScale: 19.24
     - _CausticsSpeed: 0.008
-    - _CausticsSplit: 0.003
-    - _CausticsStrength: 1
+    - _CausticsSplit: 0.0015
+    - _CausticsStrength: 1.2
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2

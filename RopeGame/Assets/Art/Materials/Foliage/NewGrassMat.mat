@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TreeLeavesMat
+  m_Name: NewGrassMat
   m_Shader: {fileID: -6465566751694194690, guid: d9e0f4fcd9144314caa9e7150d193ab2, type: 3}
   m_ValidKeywords:
   - SHAPENORMAL_VERTEXNORMAL
@@ -96,7 +96,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 5243400aaad6ff4448c7a4bd1781eff2, type: 3}
+        m_Texture: {fileID: 2800000, guid: f7858652828fb624cb3d5cf450ba6547, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_ba4f0a2a3c1043358bddef2375d8b483_Out_0:
@@ -123,7 +123,7 @@ Material:
     - _ADDITIONAL_LIGHT_SHADOWS: 1
     - _AmbientOcclusion: 0.2
     - _BumpScale: 1
-    - _ClipThreshold: 0.728
+    - _ClipThreshold: 0.935
     - _Cutoff: 0.5
     - _DayHueOffset: 16.8
     - _DetailNormalMapScale: 1
@@ -132,7 +132,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HueAdjustment: 0
+    - _HueAdjustment: 24.31
     - _LIGHTMAP_SHADOW_MIXING: 1
     - _MAINLIGHTSHADOWS: 1
     - _MAIN_LIGHT_SHADOW: 1
@@ -142,7 +142,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _NightDayLerp: 1
-    - _NormalIntensity: 2.63
+    - _NormalIntensity: 0.85
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
@@ -153,7 +153,7 @@ Material:
     - _ScatteringStrength: 0.911
     - _ShadowSaturationLimit: 6.2
     - _ShadowSaturationMin: 0
-    - _Smoothness: 0
+    - _Smoothness: 4.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

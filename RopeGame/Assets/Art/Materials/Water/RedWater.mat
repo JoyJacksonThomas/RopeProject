@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
+  m_Name: RedWater
   m_Shader: {fileID: -6465566751694194690, guid: fcc49d1286d1ecb45b8d11efc667e095, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -117,11 +117,11 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DeepWater: {r: 0, g: 0.51009387, b: 0.78431374, a: 0.54509807}
+    - _DeepWater: {r: 0.78431374, g: 0, b: 0.04466188, a: 0.54509807}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 0.57254905}
     - _FoamDirection: {r: 1, g: 1, b: 0, a: 0}
-    - _ShallowWater: {r: 0, g: 0.12229209, b: 0.3773585, a: 0.4862745}
+    - _ShallowWater: {r: 0.3764706, g: 0, b: 0.033974502, a: 0.4862745}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2101923582862384516

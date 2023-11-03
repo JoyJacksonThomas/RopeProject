@@ -88,7 +88,7 @@ Shader "Example/URPReconstructWorldPos"
         half r = SAMPLE_TEXTURE2D(_CausticsTexture, sampler_CausticsTexture, uv1).r;
         half g = SAMPLE_TEXTURE2D(_CausticsTexture, sampler_CausticsTexture, uv2).r;
         half b = SAMPLE_TEXTURE2D(_CausticsTexture, sampler_CausticsTexture, uv3).r;
-
+    
         return half3(r, g, b);
     }
 

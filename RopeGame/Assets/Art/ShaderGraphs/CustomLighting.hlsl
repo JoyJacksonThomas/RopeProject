@@ -93,7 +93,7 @@ float3 CustomLightHandling(CustomLightingData d, Light light) {
 
     float3 color = d.albedo * radiance * (diffuse + specular)
         + d.albedo * tlucencyRadiance * tlucency;
-
+    
     //float3 color = d.albedo * radiance * (diffuse + specular);
 
     return color;
@@ -127,7 +127,7 @@ float3 CalculateCustomLighting(CustomLightingData d) {
 #endif
 
     color = MixFog(color, d.fogFactor);
-
+    
     return color;
 #endif
 }
@@ -181,7 +181,7 @@ void CalculateCustomLighting_float(float3 Position, float3 MeshNormal, float3 Sh
     d.subsurfaceColor = SubsurfaceColor;
     d.thinness = Thinness;
     d.scatteringStrength = ScatteringStrength;
-
+    
 #ifdef SHADERGRAPH_PREVIEW
     // In preview, there's no shadows or bakedGI
     d.shadowCoord = 0;
